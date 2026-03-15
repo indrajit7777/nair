@@ -1,0 +1,11 @@
+CREATE TABLE customers (customer_id VARCHAR(10) PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, city VARCHAR(50) NOT NULL);
+CREATE TABLE sales_reps (sales_rep_id VARCHAR(10) PRIMARY KEY, name VARCHAR(100) NOT NULL, email VARCHAR(100) NOT NULL, office_address VARCHAR(200) NOT NULL);
+CREATE TABLE products (product_id VARCHAR(10) PRIMARY KEY, name VARCHAR(100) NOT NULL, category VARCHAR(50) NOT NULL, unit_price DECIMAL(10,2) NOT NULL);
+CREATE TABLE orders (order_id VARCHAR(10) PRIMARY KEY, order_date DATE NOT NULL, customer_id VARCHAR(10) NOT NULL, sales_rep_id VARCHAR(10) NOT NULL, FOREIGN KEY (customer_id) REFERENCES customers(customer_id), FOREIGN KEY (sales_rep_id) REFERENCES sales_reps(sales_rep_id));
+CREATE TABLE order_details (order_id VARCHAR(10) NOT NULL, product_id VARCHAR(10) NOT NULL, quantity INTEGER NOT NULL, PRIMARY KEY (order_id, product_id), FOREIGN KEY (order_id) REFERENCES orders(order_id), FOREIGN KEY (product_id) REFERENCES products(product_id));
+
+INSERT INTO customers VALUES ('C001','Rohan Mehta','rohan@gmail.com','Mumbai'),('C002','Priya Sharma','priya@gmail.com','Delhi'),('C005','Vikram Singh','vikram@gmail.com','Mumbai'),('C006','Neha Gupta','neha@gmail.com','Delhi'),('C007','Arjun Nair','arjun@gmail.com','Bangalore');
+INSERT INTO sales_reps VALUES ('SR01','Deepak Joshi','deepak@corp.com','Mumbai HQ, Nariman Point, Mumbai - 400021'),('SR02','Anita Desai','anita@corp.com','Delhi Office, Connaught Place, New Delhi - 110001'),('SR03','Ravi Kumar','ravi@corp.com','South Zone, MG Road, Bangalore - 560001');
+INSERT INTO products VALUES ('P001','Laptop','Electronics',55000.00),('P002','Mouse','Electronics',800.00),('P003','Desk Chair','Furniture',8500.00),('P004','Notebook','Stationery',120.00),('P008','Webcam','Electronics',2100.00),('P009','Printer','Electronics',15000.00);
+INSERT INTO orders VALUES ('ORD1114','2023-06-15','C001','SR01'),('ORD1002','2023-05-10','C002','SR02'),('ORD1075','2023-07-20','C005','SR03'),('ORD1061','2023-08-01','C006','SR01'),('ORD1098','2023-08-05','C007','SR03');
+INSERT INTO order_details VALUES ('ORD1114','P007',2),('ORD1002','P005',1),('ORD1075','P003',3),('ORD1061','P001',4),('ORD1098','P001',2);
